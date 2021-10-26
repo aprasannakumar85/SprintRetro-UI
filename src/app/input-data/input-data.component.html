@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Hi!!</h1>
+<div mat-dialog-content>
+  <p>{{ data.Message }}</p>
+  <br />
+  <mat-form-field appearance="legacy">
+    <input matInput autocomplete="off" placeholder="Name (required)" [(ngModel)]="data.name"/>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" [mat-dialog-close]="data.name" cdkFocusInitial>Yah!</button>
+</div>

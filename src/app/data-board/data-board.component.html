@@ -1,0 +1,147 @@
+<!-- <div style="font-weight: bolder;align-items: center;position: fixed;right: 0;">
+  &nbsp; <button color="primary" mat-raised-button matTooltip="load retro board data" matTooltipClass="tooltip"
+    (click)="GetRetoData()">
+    <mat-icon>autorenew</mat-icon>&nbsp;Reload
+  </button>
+</div> -->
+<div>
+  &nbsp;
+</div>
+<article>
+  <div>
+    <table style="position: fixed;left: 0;width: 100%;">
+      <tr>
+        <td style="vertical-align: top;">
+          <div class="container text-center">
+            <table mat-table [dataSource]="dataSource" #mytable class="my-table mat-elevation-z8"
+              style="background-color: lightseagreen;color: black;font-weight: bolder;">
+              <ng-container matColumnDef="message">
+                <th mat-header-cell *matHeaderCellDef style="background-color: wheat;color: black;font-weight: bolder;">
+                  What Went Well&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.message}} &nbsp;&nbsp;</td>
+              </ng-container>
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef style="background-color: wheat;color: black;font-weight: bolder;">
+                  <button style="background-color: wheat;" mat-button (click)="openDialog('Add WentWell',{})"
+                    mat-stroked-button color="primary" matTooltip="add new item" matTooltipClass="tooltip">
+                    &nbsp;<mat-icon>add</mat-icon>
+                  </button>
+                </th>
+                <td mat-cell *matCellDef="let element" class="action-link">
+                  <a (click)="openDialog('Update',element)" style="cursor: pointer;" matTooltip="edit" matTooltipClass="tooltip">
+                    <mat-icon>edit</mat-icon>
+                  </a>&nbsp;
+                  <a (click)="openDialog('Delete',element)" style="cursor: pointer;" matTooltip="delete" matTooltipClass="tooltip">
+                    <mat-icon>delete</mat-icon>
+                  </a>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" [hidden]="row.messageType != 0"></tr>
+            </table>
+          </div>
+        </td>
+        <td>
+          &nbsp;
+        </td>
+        <td style="vertical-align: top;">
+          <div class="container text-center">
+            <table mat-table [dataSource]="dataSource" #mytable class="my-table mat-elevation-z8"
+              style="background-color: rgb(243, 73, 61);color: black;font-weight: bolder;">
+              <ng-container matColumnDef="message">
+                <th mat-header-cell *matHeaderCellDef style="background-color: wheat;color: black;font-weight: bolder;">
+                  To Improve&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </th>
+                <td mat-cell *matCellDef="let element"> {{element.message}} &nbsp;&nbsp;</td>
+              </ng-container>
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef style="background-color: wheat;color: black;font-weight: bolder;">
+                  <button style="background-color: wheat;" mat-button (click)="openDialog('Add Improve',{})"
+                    mat-stroked-button color="primary" matTooltip="add new item" matTooltipClass="tooltip">
+                    &nbsp;<mat-icon>add</mat-icon>
+                  </button>
+                </th>
+                <td mat-cell *matCellDef="let element" class="action-link">
+                  <a (click)="openDialog('Update',element)" style="cursor: pointer;" matTooltip="edit" matTooltipClass="tooltip">
+                    <mat-icon>edit</mat-icon>
+                  </a>&nbsp;
+                  <a (click)="openDialog('Delete',element)" style="cursor: pointer;" matTooltip="delete" matTooltipClass="tooltip">
+                    <mat-icon>delete</mat-icon>
+                  </a>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" [hidden]="row.messageType != 1"></tr>
+            </table>
+          </div>
+        </td>
+        <td>
+          &nbsp;
+        </td>
+        <td style="vertical-align: top;">
+          <div class="container text-center">
+            <table mat-table [dataSource]="dataSource" #mytable class="my-table mat-elevation-z8"
+              style="background-color: rgb(87, 108, 226);color: black;font-weight: bolder;">
+              <ng-container matColumnDef="message">
+                <th mat-header-cell *matHeaderCellDef style="background-color: wheat;color: black;font-weight: bolder;">
+                  Action Items&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </th>
+                <td mat-cell *matCellDef="let element"> {{element.message}} &nbsp;&nbsp;</td>
+              </ng-container>
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef style="background-color: wheat;color: black;font-weight: bolder;">
+                  <button style="background-color: wheat;" mat-button (click)="openDialog('Add Action',{})"
+                    mat-stroked-button color="primary" matTooltip="add new item" matTooltipClass="tooltip">
+                    &nbsp;<mat-icon>add</mat-icon>
+                  </button>
+                </th>
+                <td mat-cell *matCellDef="let element" class="action-link">
+                  <a (click)="openDialog('Update',element)" style="cursor: pointer;" matTooltip="edit" matTooltipClass="tooltip">
+                    <mat-icon>edit</mat-icon>
+                  </a>&nbsp;
+                  <a (click)="openDialog('Delete',element)" style="cursor: pointer;" matTooltip="delete" matTooltipClass="tooltip">
+                    <mat-icon>delete</mat-icon>
+                  </a>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" [hidden]="row.messageType != 3"></tr>
+            </table>
+          </div>
+        </td>
+        <td>
+          &nbsp;
+        </td>
+        <td style="vertical-align: top;">
+          <div class="container text-center">
+            <table mat-table [dataSource]="dataSource" #mytable class="my-table mat-elevation-z8"
+              style="background-color: rgb(214, 68, 195);color: black;font-weight: bolder;">
+              <ng-container matColumnDef="message">
+                <th mat-header-cell *matHeaderCellDef style="background-color: wheat;color: black;font-weight: bolder;">
+                  Kudos!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </th>
+                <td mat-cell *matCellDef="let element"> {{element.message}} &nbsp;&nbsp;</td>
+              </ng-container>
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef style="background-color: wheat;color: black;font-weight: bolder;">
+                  <button style="background-color: wheat;" mat-button (click)="openDialog('Add Kudos',{})"
+                    mat-stroked-button color="primary" matTooltip="add new item" matTooltipClass="tooltip">
+                    &nbsp;<mat-icon>add</mat-icon>
+                  </button>
+                </th>
+                <td mat-cell *matCellDef="let element" class="action-link">
+                  <a (click)="openDialog('Update',element)" style="cursor: pointer;" matTooltip="edit" matTooltipClass="tooltip">
+                    <mat-icon>edit</mat-icon>
+                  </a>&nbsp;
+                  <a (click)="openDialog('Delete',element)" style="cursor: pointer;" matTooltip="delete" matTooltipClass="tooltip">
+                    <mat-icon>delete</mat-icon>
+                  </a>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" [hidden]="row.messageType != 2"></tr>
+            </table>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</article>

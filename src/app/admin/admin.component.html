@@ -1,0 +1,82 @@
+<div class="panel panel-primary">
+  <div class="panel-heading" style="font-size: x-large; font-weight: bolder">
+    Welcome {{ userName && userName !== "" ? userName + "!!!" : "" }}
+  </div>
+  <div class="row">&nbsp;</div>
+  <div class="row" *ngIf="!userName || userName === ''">
+    <button color="primary" mat-raised-button matTooltip="enter user name" matTooltipClass="tooltip" (click)="openDialog()">
+      <mat-icon>update</mat-icon>
+    </button>
+  </div>
+  <div class="row">&nbsp;</div>
+  <div *ngIf="userName && userName !== ''">
+    <table class="table-Header">
+      <tr>
+        <td class="td-large-Bold" colspan="2" style="font-size: large; font-weight: bolder">&nbsp;You are from:</td>
+      </tr>
+      <tr>
+        <td>
+          &nbsp;
+          <mat-form-field appearance="legacy">
+            <input title=" " autocomplete="off" matInput placeholder="employer/organization (required)"
+              [(ngModel)]="employer" [ngClass]="{ 'has-error': employer === '' }" required
+              matTooltip="employer/organization name" matTooltipClass="tooltip" />
+          </mat-form-field>
+        </td>
+        <td>
+          &nbsp;
+          <mat-form-field appearance="legacy">
+            <input title=" " autocomplete="off" matInput placeholder="team/group (required)" [(ngModel)]="team"
+              [ngClass]="{ 'has-error': team === '' }" required matTooltip="team/group name"
+              matTooltipClass="tooltip" />
+          </mat-form-field>
+        </td>
+        <td>
+          &nbsp;
+          <mat-form-field appearance="legacy">
+            <input title=" " autocomplete="off" matInput placeholder="sprint number (required)"
+              [(ngModel)]="sprintNumber" [ngClass]="{ 'has-error': sprintNumber === '' }" required
+              matTooltip="team/group name" matTooltipClass="tooltip" />
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="row">&nbsp;</div>
+  <div *ngIf="userName && userName !== ''">
+    <div style="align-items: center;">
+      <button color="primary" mat-raised-button matTooltip="generate a link for the sprint retro"
+        matTooltipClass="tooltip" [disabled]="(sprintNumber === '' || employer === '' || team === '')"
+        (click)="CreateLink()">
+        Generate URL for Sprint Retro
+      </button>&nbsp; <span style="font-weight: bolder; color: rgb(22, 15, 88);">
+        {{ newLink }}</span>&nbsp;
+      <span *ngIf="(newLink !== '')"><a matTooltip="copy the link" href="#" (click)="CopyToClipboard()">
+          <mat-icon>content_copy</mat-icon>
+        </a></span>
+    </div>
+    <div>
+      &nbsp;
+    </div>
+    <div>
+      <span style="font-weight: bolder; color: rgb(207, 83, 10);">
+        {{ adminMessage }}</span>
+    </div>
+    <div>
+      &nbsp;
+    </div>
+    <div class="panel-heading" style="font-size: x-large; font-weight: bolder">
+      {{ headerDataDecrypted | removeQuotes | uppercase}}
+    </div>
+    <div>
+      &nbsp;
+    </div>
+    <div>
+&nbsp;
+    </div>
+  </div>
+  <div *ngIf="newLink != ''">
+    <app-data-board [headerData]='headerDataDecoded'></app-data-board>
+  </div>
+</div>
