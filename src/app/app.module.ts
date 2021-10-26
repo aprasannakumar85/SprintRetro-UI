@@ -19,7 +19,7 @@ import { EditRetroComponent } from './edit-retro/edit-retro.component';
 
 const routes: Routes = [
   { path: '', component: AdminComponent },
-  { path: 'retro/:header', component: TeamMemeberComponent  },
+  { path: '#/retro/:header', component: TeamMemeberComponent  },
   { path: '**', component: PageNotFoundComponent }
 ];
 
