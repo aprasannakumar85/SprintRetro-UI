@@ -17,6 +17,7 @@ export class TeamMemeberComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
 
   async ngOnInit(): Promise<void> {
+    alert();
     let key: any;
     await import('crypto-js')
       .then(async (module) => {
