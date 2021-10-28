@@ -1,3 +1,9 @@
+<div class="toolbar" role="banner">
+  <div class="header-account-settings"><button (click)="ClearCache()" mat-button>
+      <mat-icon>delete</mat-icon>&nbsp;Clear Data
+    </button>
+  </div>
+</div>
 <div class="panel panel-primary">
   <div class="panel-heading" style="font-size: x-large; font-weight: bolder">
     Welcome {{ userName && userName !== "" ? userName + "!!!" : "" }}
@@ -20,7 +26,8 @@
           <mat-form-field appearance="legacy">
             <input title=" " autocomplete="off" matInput placeholder="employer/organization (required)"
               [(ngModel)]="employer" [ngClass]="{ 'has-error': employer === '' }" required
-              matTooltip="employer/organization name" matTooltipClass="tooltip" />
+              matTooltip="employer/organization name" matTooltipClass="tooltip"
+              (input)="alphaNumberOnly($event)" (keypress)="alphaNumberOnly($event)" (paste)="onPaste($event)" />
           </mat-form-field>
         </td>
         <td>
@@ -28,7 +35,7 @@
           <mat-form-field appearance="legacy">
             <input title=" " autocomplete="off" matInput placeholder="team/group (required)" [(ngModel)]="team"
               [ngClass]="{ 'has-error': team === '' }" required matTooltip="team/group name"
-              matTooltipClass="tooltip" />
+              matTooltipClass="tooltip"  (input)="alphaNumberOnly($event)" (keypress)="alphaNumberOnly($event)" (paste)="onPaste($event)"/>
           </mat-form-field>
         </td>
         <td>
@@ -36,7 +43,8 @@
           <mat-form-field appearance="legacy">
             <input title=" " autocomplete="off" matInput placeholder="sprint number (required)"
               [(ngModel)]="sprintNumber" [ngClass]="{ 'has-error': sprintNumber === '' }" required
-              matTooltip="team/group name" matTooltipClass="tooltip" />
+              matTooltip="sprint number" matTooltipClass="tooltip"
+              (input)="alphaNumberOnly($event)" (keypress)="alphaNumberOnly($event)" (paste)="onPaste($event)"/>
             <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
           </mat-form-field>
         </td>

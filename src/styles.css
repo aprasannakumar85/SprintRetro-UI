@@ -98,3 +98,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   align-content: center;
   align-items: center;
 }
+
+.header-account-settings {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  color: rosybrown;
+  text-align: right;
+  align-content: right;
+  align-items: right;
+}

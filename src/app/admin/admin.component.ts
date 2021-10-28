@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Constants } from 'src/environments/constants';
 import { InputDataComponent } from '../input-data/input-data.component';
 import { EncryptDecrypt } from '../shared/crypto';
@@ -25,7 +26,7 @@ export class AdminComponent implements OnInit {
   headerDataDecrypted: any;
   headerDataDecoded: any;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private router: Router, private dialog: MatDialog) {}
 
   async ngOnInit(): Promise<void> {
     this.localAddress = window.location.href;
@@ -140,5 +141,35 @@ export class AdminComponent implements OnInit {
     if (retrievedData) {
       return JSON.parse(retrievedData);
     }
+  }
+
+  alphaNumberOnly (e: { charCode: number; which: number; preventDefault: () => void; }) {
+    // Accept only alpha numerics, not special characters
+    var regex = new RegExp("^[a-zA-Z0-9 ]+$");
+    var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+    if (regex.test(str)) {
+        return true;
+    }
+
+    e.preventDefault();
+    return false;
+  }
+
+  onPaste(e: { preventDefault: () => void; }) {
+    e.preventDefault();
+    return false;
+  }
+
+  ClearCache(){
+    localStorage.removeItem('sprintRetro');
+    localStorage.removeItem('userName');
+    this.headerDataDecrypted = '';
+    this.headerData = '';
+    this.headerData = '';
+    this.headerDataDecoded = '';
+    this.newLink = '';
+    this.employer = '';
+    this.team = '';
+    this.sprintNumber = '';
   }
 }
