@@ -53,8 +53,7 @@ export class DataBoardComponent implements OnInit, OnDestroy, OnChanges {
     this.timeInterval = interval(3000)
       .pipe(
         startWith(0),
-        switchMap(() => this.retroDataPollingService.getAllRetroData(this.headerData)),
-        retry(),
+        switchMap(() => this.retroDataPollingService.getAllRetroData(this.headerData))
       ).subscribe(res => {
         let temp = res.body;
         this.formatRetroData(temp);
