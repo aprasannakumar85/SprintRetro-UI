@@ -11,6 +11,7 @@ import { RetroData } from '../shared/models/retro.model';
 import { RetroDataPollingService } from '../shared/retro.polling.service';
 import { RetroService } from '../shared/retro.service';
 import { startWith, switchMap, retry } from 'rxjs/operators';
+import { HelperRetro } from '../shared/helper.common';
 
 @Component({
   selector: 'app-data-board',
@@ -21,6 +22,7 @@ export class DataBoardComponent implements OnInit, OnDestroy, OnChanges {
   @Input() headerData: string;
   private key: any;
   private randomNumber = `${Constants.RandomNumber}`;
+  private attemptFailed = false;
 
   retroDataList: RetroData[];
 
@@ -53,12 +55,17 @@ export class DataBoardComponent implements OnInit, OnDestroy, OnChanges {
     this.timeInterval = interval(3000)
       .pipe(
         startWith(0),
-        switchMap(() => this.retroDataPollingService.getAllRetroData(this.headerData))
+        switchMap(() => this.retroDataPollingService.getAllRetroData(this.headerData)),
+        retry(),
       ).subscribe(res => {
+        this.attemptFailed = false;
         let temp = res.body;
         this.formatRetroData(temp);
       },
-        err => console.log('HTTP Error', err));
+        err => {
+          this.attemptFailed = true;
+          console.log('HTTP Error', err)}
+          );
   }
 
   ngOnChanges() {
@@ -85,7 +92,7 @@ export class DataBoardComponent implements OnInit, OnDestroy, OnChanges {
     this.retroDataList = [];
     this.retroDataList = data;
     this.retroDataList.forEach(async (element) => {
-      element.headerData = await EncryptDecrypt.decryptUsingAES256(element.headerData, this.key);
+      element.headerData = await HelperRetro.decryptHeaderData(element.headerData);
       element.message = await EncryptDecrypt.decryptUsingAES256(element.message, this.key);
     });
     //console.log(this.retroDataList);

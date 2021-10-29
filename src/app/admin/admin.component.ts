@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Constants } from 'src/environments/constants';
 import { InputDataComponent } from '../input-data/input-data.component';
 import { EncryptDecrypt } from '../shared/crypto';
+import { HelperRetro } from '../shared/helper.common';
 
 @Component({
   selector: 'app-admin',
@@ -44,10 +45,7 @@ export class AdminComponent implements OnInit {
         });
 
       this.headerData = tempData;
-      this.headerDataDecrypted = await EncryptDecrypt.decryptUsingAES256(
-        tempData,
-        key
-      );
+      this.headerDataDecrypted = await HelperRetro.decryptHeaderData(tempData);
       this.headerDataDecoded = decodeURIComponent(this.headerData);
 
       const tempUserName = await EncryptDecrypt.decryptUsingAES256(
@@ -114,13 +112,12 @@ export class AdminComponent implements OnInit {
         console.log(err.message);
       });
 
-    let link = await EncryptDecrypt.encryptUsingAES256(
-      `${this.employer}-${this.team}-${this.sprintNumber}`,
-      key
+    let link = await HelperRetro.encryptHeaderData(
+      `${this.employer}-${this.team}-${this.sprintNumber}`
     );
     this.StoreCardsLocalStorage('sprintRetro', link);
 
-    this.headerDataDecrypted = `${this.employer}-${this.team}-${this.sprintNumber}`;
+    this.headerDataDecrypted = `${this.employer.toUpperCase()}-${this.team.toUpperCase()}-${this.sprintNumber.toUpperCase()}`;
     //console.log(link);
     this.headerData = link;
     this.headerData = encodeURIComponent(this.headerData);
@@ -145,7 +142,7 @@ export class AdminComponent implements OnInit {
 
   alphaNumberOnly (e: { charCode: number; which: number; preventDefault: () => void; }) {
     // Accept only alpha numerics, not special characters
-    var regex = new RegExp("^[a-zA-Z0-9 ]+$");
+    var regex = new RegExp("^[a-zA-Z0-9. ]+$");
     var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
     if (regex.test(str)) {
         return true;

@@ -26,7 +26,7 @@
           <mat-form-field appearance="legacy">
             <input title=" " autocomplete="off" matInput placeholder="employer/organization (required)"
               [(ngModel)]="employer" [ngClass]="{ 'has-error': employer === '' }" required
-              matTooltip="employer/organization name" matTooltipClass="tooltip"
+              matTooltip="employer/organization name" matTooltipClass="tooltip" (ngModelChange)="employer = $event.toUpperCase()"
               (input)="alphaNumberOnly($event)" (keypress)="alphaNumberOnly($event)" (paste)="onPaste($event)" />
           </mat-form-field>
         </td>
@@ -34,7 +34,7 @@
           &nbsp;
           <mat-form-field appearance="legacy">
             <input title=" " autocomplete="off" matInput placeholder="team/group (required)" [(ngModel)]="team"
-              [ngClass]="{ 'has-error': team === '' }" required matTooltip="team/group name"
+              [ngClass]="{ 'has-error': team === '' }" required matTooltip="team/group name" (ngModelChange)="team = $event.toUpperCase()"
               matTooltipClass="tooltip"  (input)="alphaNumberOnly($event)" (keypress)="alphaNumberOnly($event)" (paste)="onPaste($event)"/>
           </mat-form-field>
         </td>
@@ -43,7 +43,7 @@
           <mat-form-field appearance="legacy">
             <input title=" " autocomplete="off" matInput placeholder="sprint number (required)"
               [(ngModel)]="sprintNumber" [ngClass]="{ 'has-error': sprintNumber === '' }" required
-              matTooltip="sprint number" matTooltipClass="tooltip"
+              matTooltip="sprint number" matTooltipClass="tooltip" (ngModelChange)="sprintNumber = $event.toUpperCase()"
               (input)="alphaNumberOnly($event)" (keypress)="alphaNumberOnly($event)" (paste)="onPaste($event)"/>
             <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
           </mat-form-field>

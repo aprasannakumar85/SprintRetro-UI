@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Constants } from 'src/environments/constants';
 import { EncryptDecrypt } from './crypto';
+import { HelperRetro } from './helper.common';
 import { RetroData } from './models/retro.model';
 
 @Injectable({
@@ -46,10 +47,7 @@ export class RetroService {
   }
 
   async updateRetro(retroData: RetroData): Promise<Observable<RetroData>> {
-    let headerDataEncrypted = await EncryptDecrypt.encryptUsingAES256(
-      retroData.headerData,
-      this.key
-    );
+    let headerDataEncrypted = await HelperRetro.encryptHeaderData(retroData.headerData);
     let messageEncrypted = await EncryptDecrypt.encryptUsingAES256(
       retroData.message,
       this.key
@@ -67,10 +65,7 @@ export class RetroService {
     partitionKey: string,
     rowId: string
   ): Promise<Observable<any>> {
-    let partitionKeyEncrypted = await EncryptDecrypt.encryptUsingAES256(
-      partitionKey,
-      this.key
-    );
+    let partitionKeyEncrypted = await HelperRetro.encryptHeaderData(partitionKey);
 
     partitionKeyEncrypted = encodeURIComponent(partitionKeyEncrypted);
 
